@@ -1,0 +1,15 @@
+
+.nav {
+    grid-area: n;
+    border-right: 3px solid black;
+    display: flex;
+    flex-direction: column;
+
+}
+.item {
+    color: #4193ff;
+}
+.item.active {
+    font-size: 18px;
+    font-weight: bold;
+}

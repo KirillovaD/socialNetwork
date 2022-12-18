@@ -1,9 +1,10 @@
 import React from 'react';
 import contentImg from "../assets/images/aesthetic-background-with-patterned-glass-texture.jpg";
+import s from "./Profile.module.css"
 
 export const Profile = ()=>{
     return(
-        <div className="content">Main content
+        <div className={s.content}>
             <div>
                 <img src={contentImg} alt="content image"/>
             </div>
@@ -15,12 +16,16 @@ export const Profile = ()=>{
                 <div>
                     New Post
                 </div>
-                <div>
-                    Post1
+                <div className={s.posts}>
+                    <div className={s.item}>
+                        Post1
+                    </div>
+                    <div className={s.item}>
+                        Post2
+                    </div>
+
                 </div>
-                <div>
-                    Post2
-                </div>
+
             </div>
 
         </div>
