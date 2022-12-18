@@ -1,0 +1,49 @@
+.wrapper {
+    display: grid;
+    width: 100vw;
+    margin: 0 auto;
+
+    grid-auto-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    grid-gap: 30px;
+    grid-template-areas:
+     "h h"
+     "n c";
+
+}
+
+.header {
+    grid-area: h;
+    background-color: #4193ff;
+    padding: 10px 30px;
+    height: 10vh;
+
+
+}
+.header img {
+    width: 50px;
+
+}
+
+.nav {
+    grid-area: n;
+    border-right: 3px solid black;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.content {
+    grid-area: c;
+    border-bottom: 3px solid black;
+    padding: 20px 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.content img {
+    height: 50vh;
+    width: 100%;
+;
+}
