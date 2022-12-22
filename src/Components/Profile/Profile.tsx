@@ -5,15 +5,15 @@ import {MyPosts} from "./MyPosts/MyPosts";
 
 export const Profile = ()=>{
     return(
-        <div className={s.content}>
+        <>
             <div>
-                <img src={contentImg} alt="content image"/>
+                <img className={s.profile_img} src={contentImg} alt="content image"/>
             </div>
             <div>
                 ava+desc
             </div>
            <MyPosts/>
-        </div>
+        </>
 
     )
 }
