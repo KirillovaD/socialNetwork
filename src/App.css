@@ -13,7 +13,7 @@
 }
 .app-wrapper-content{
     grid-area: c;
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid  #0a182a;
     padding: 20px 0;
 
     display: flex;
