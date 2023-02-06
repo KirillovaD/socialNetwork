@@ -4,10 +4,14 @@
 
 }
 .dialogs_items{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 
 
 }
 .dialog{
+
 
 }
 .messages{
@@ -28,8 +32,10 @@
 
 
 }
-.dialogs_items .active{
+.dialogs_items {
     font-size: 16px;
-    font-weight: bold;
     color: #4193ff;
+}
+a.active{
+    font-weight: bold;
 }

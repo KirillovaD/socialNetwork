@@ -4,7 +4,7 @@
     border-right: 3px solid #0a182a;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     padding: 20px;
 
 }
@@ -17,5 +17,7 @@ a:hover {
 a {
     color: #4193ff;
     text-decoration: none;
-
+}
+.nav a {
+    font-size: 20px;
 }

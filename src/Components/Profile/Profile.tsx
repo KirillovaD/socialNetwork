@@ -2,17 +2,24 @@ import React from 'react';
 import contentImg from "../../assets/images/aesthetic-background-with-patterned-glass-texture.jpg";
 import s from "./Profile.module.css"
 import {MyPosts} from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import {ActionsType, ProfilePageType} from "../../redux/state";
 
-export const Profile = ()=>{
-    return(
+
+
+type ProfilePropsType = {
+    stateProfilePage: ProfilePageType
+    dispatch:(action:ActionsType)=>void
+
+}
+
+export const Profile = (props:ProfilePropsType) => {
+
+
+    return (
         <>
-            <div>
-                <img className={s.profile_img} src={contentImg} alt="content image"/>
-            </div>
-            <div>
-                ava+desc
-            </div>
-           <MyPosts/>
+            <ProfileInfo/>
+            <MyPosts posts={props.stateProfilePage.posts} newPostText={props.stateProfilePage.newPostText} dispatch={props.dispatch} />
         </>
 
     )
