@@ -14,6 +14,7 @@ export type DialogType = {
 export type MessageType = {
     id: number
     message: string
+
 }
 export type ProfilePageType = {
     posts: Array<PostPropsType>
@@ -23,6 +24,7 @@ export type ProfilePageType = {
 export type DialogPageType = {
     dialogs: Array<DialogType>
     messages: Array<MessageType>
+    newMessageText: string
 }
 export type SidebarType = {}
 export type RootStateType = {
@@ -30,7 +32,6 @@ export type RootStateType = {
     dialogPage: DialogPageType
     sidebar: SidebarType
 }
-
 
 
 export type StoreType = {
@@ -67,7 +68,8 @@ export const store: StoreType = {
                 {id: 2, message: 'Hello'},
                 {id: 3, message: 'How are you?'},
                 {id: 4, message: 'Yo'}
-            ]
+            ],
+            newMessageText: "",
         },
         sidebar: {}
 
@@ -92,11 +94,23 @@ export const store: StoreType = {
         } else if (action.type === "UPDATE-NEW-POST-TEXT") {
             this._state.profilePage.newPostText = action.newText;
             this._onChange()
+        } else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
+            this._state.dialogPage.newMessageText = action.newMessage
+            this._onChange()
+        } else if (action.type === "SEND-MESSAGE") {
+            let newMessage = {id: 6, message: this._state.dialogPage.newMessageText}
+            this._state.dialogPage.messages.push(newMessage)
+            this._state.dialogPage.newMessageText=''
+            this._onChange()
         }
+
     }
 
 }
-export type ActionsType =  ReturnType<typeof addPostAC> | ReturnType<typeof updateNewPostTextAC>
+export type ActionsType = ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof updateNewMessageTextAC>
+    | ReturnType<typeof sendMessageAC>
 
 export const addPostAC = () => {
     return {
@@ -108,6 +122,18 @@ export const updateNewPostTextAC = (newText: string) => {
     return {
         type: "UPDATE-NEW-POST-TEXT",
         newText: newText
+    } as const
+}
+export const updateNewMessageTextAC = (newMessage: string) => {
+    return {
+        type: "UPDATE-NEW-MESSAGE-TEXT",
+        newMessage: newMessage
+    } as const
+}
+
+export const sendMessageAC = () => {
+    return {
+        type: "SEND-MESSAGE",
     } as const
 }
 
