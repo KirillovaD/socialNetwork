@@ -3,30 +3,27 @@ import s from "./Dialogs.module.css";
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {
-    ActionsType,
-    DialogPageType,
-    DialogType,
-    MessageType,
-    sendMessageAC,
-    updateNewMessageTextAC
-} from "../../redux/state";
+    DialogsPageType,
+} from "../../redux/store";
+
 
 
 type DialogsPropsType = {
-    state: DialogPageType
-    newMessageText:string
-    dispatch:(action:ActionsType)=>void
+    dialogsPage: DialogsPageType
+    sendMessage:()=>void
+    updateNewMessage:(newMessageText:string)=>void
 }
 const Dialogs = (props: DialogsPropsType) => {
-    let dialogsElements = props.state.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messagesElements = props.state.messages.map(m => <Message message={m.message}/>)
+    const state = props.dialogsPage
+    let dialogsElements = state.dialogs.map((d,index) => <DialogItem key={index} name={d.name} id={d.id}/>)
+    let messagesElements = state.messages.map((m,index) => <Message key={index} message={m.message}/>)
 
     const addMessageHandler = () => {
-        props.dispatch(sendMessageAC())
+        props.sendMessage()
     }
     const onNewMessageChange = (e:ChangeEvent<HTMLTextAreaElement>)=>{
         let newMessageText= e.currentTarget.value
-        props.dispatch(updateNewMessageTextAC(newMessageText))
+        props.updateNewMessage(newMessageText)
 
     }
     return (
@@ -38,7 +35,7 @@ const Dialogs = (props: DialogsPropsType) => {
                 {messagesElements}
             </div>
             <div>
-                <textarea placeholder={'Enter your message'} value={props.newMessageText} onChange={onNewMessageChange}></textarea>
+                <textarea placeholder={'Enter your message'} value={state.newMessageText} onChange={onNewMessageChange}></textarea>
                 <button onClick={addMessageHandler}>Add message</button>
             </div>
 
