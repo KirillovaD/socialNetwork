@@ -5,17 +5,20 @@ import App from './App';
 
 
 import {store} from "./redux/redux-store";
-import {Provider} from "react-redux";
+import StoreContext from "./redux/StoreContext";
+import {RootStateType} from "./redux/store";
 
-const rerenderEntireTree = (state: any) => {
+const rerenderEntireTree = (state: RootStateType) => {
     ReactDOM.render(
-            <App store={store}/>,
+        <StoreContext.Provider value={store}>
+            <App />
+        </StoreContext.Provider>,
         document.getElementById('root')
     );
 }
 
 export type PostPropsType = {
-    id: number
+    id: string
     message: string
     likesCount: number
 }

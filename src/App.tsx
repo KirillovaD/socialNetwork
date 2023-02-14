@@ -14,10 +14,10 @@ import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 
 
 
-type AppPropsType = {
-    store:StoreType
-}
-const App: React.FC<AppPropsType> = (props) => {
+// type AppPropsType = {
+//     store:StoreType
+// }
+const App: React.FC = () => {
 
     return (
         <BrowserRouter>
@@ -26,8 +26,8 @@ const App: React.FC<AppPropsType> = (props) => {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Routes>
-                        <Route element={<DialogsContainer store={props.store}/>} path='/dialogs/*'/>
-                        <Route element={<Profile store={props.store} />} path='/profile' />
+                        <Route element={<DialogsContainer />} path='/dialogs/*'/>
+                        <Route element={<Profile />} path='/profile' />
                         <Route element={<News />} path='/news' />
                         <Route element={<Music />} path='/music' />
                         <Route element={<Settings />} path='/settings' />

@@ -7,21 +7,16 @@ import {ActionsType, ProfilePageType} from "../../redux/store";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {AppStateType} from "../../redux/redux-store";
 
-//stateProfilePage={state.profilePage} dispatch={props.store.dispatch}
 
-type ProfilePropsType = {
-    store:any
-    // stateProfilePage: ProfilePageType
+// type ProfilePropsType = {
+//     store:any
+// }
 
-}
-
-export const Profile = (props:ProfilePropsType) => {
-
-
+export const Profile = () => {
     return (
         <>
             <ProfileInfo/>
-            <MyPostsContainer store={props.store} />
+            <MyPostsContainer  />
         </>
 
     )
