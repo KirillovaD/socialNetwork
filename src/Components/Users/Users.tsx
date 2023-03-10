@@ -2,6 +2,7 @@ import React from 'react';
 import s from "./users.module.css";
 import user from "../../assets/images/user.png";
 import {UserType} from "../../redux/usersReducer";
+import {Link} from "react-router-dom";
 
 
 type UsersPresentationType ={
@@ -30,7 +31,9 @@ const Users = (props:UsersPresentationType ) => {
             <div>{props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
+                        <Link to={"/profile/"+u.id} >
                         <img src={u.photos.small !== null ? u.photos.small : user} className={s.userFoto}/>
+                        </Link>
                     </div>
                     <div>
                         {u.followed ?

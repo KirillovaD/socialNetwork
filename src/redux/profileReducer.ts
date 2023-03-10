@@ -1,5 +1,5 @@
-
 import {v1} from "uuid";
+import {ProfileType} from "../Components/Profile/ProfileContainer";
 
 export type PostPropsType = {
     id: string
@@ -15,7 +15,11 @@ const initialState = {
         {id: v1(), message: "Blabla", likesCount: 0}
 
     ] as Array<PostPropsType>,
-    newPostText: ""
+    newPostText: "",
+    profile: {
+        fullName: "Daria",
+        userId: 11111,
+    }
 }
 
 export const profileReducer = (state: InitialState = initialState, action: ProfileActionsType): InitialState => {
@@ -33,6 +37,12 @@ export const profileReducer = (state: InitialState = initialState, action: Profi
                 ...state,
                 newPostText: action.newText
             }
+        case "SET-USER-PROFILE":
+            return {
+                ...state,
+                profile:action.profile
+            }
+
         default:
             return state
     }
@@ -40,6 +50,7 @@ export const profileReducer = (state: InitialState = initialState, action: Profi
 
 export type ProfileActionsType = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfile>
 
 export const addPostAC = () => {
     return {
@@ -53,3 +64,10 @@ export const updateNewPostTextAC = (newText: string) => {
         newText: newText
     } as const
 }
+export const setUserProfile = (profile: ProfileType) => {
+    return {
+        type: "SET-USER-PROFILE",
+        profile
+    } as const
+}
+
