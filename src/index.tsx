@@ -2,20 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-
-
 import {store} from "./redux/redux-store";
-import StoreContext from "./redux/StoreContext";
-import {RootStateType} from "./redux/store";
+import {Provider} from "react-redux";
 
-const rerenderEntireTree = (state: RootStateType) => {
-    ReactDOM.render(
-        <StoreContext.Provider value={store}>
-            <App />
-        </StoreContext.Provider>,
-        document.getElementById('root')
-    );
-}
+
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.getElementById('root')
+);
+
 
 export type PostPropsType = {
     id: string
@@ -33,8 +30,5 @@ export type MessageType = {
 
 }
 
-rerenderEntireTree(store.getState())
-store.subscribe(()=>{
-    let state = store.getState();
-    rerenderEntireTree(state)
-})
+
+

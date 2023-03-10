@@ -1,15 +1,13 @@
-import {ActionsType} from "./store";
 
 
-type DialogType = {
+export type DialogType = {
     id: number
     name: string
     avatar: string
 }
-type MessageType = {
+export type MessageType = {
     id: number
     message: string
-
 }
 
 export type InitialStateType = typeof initialState
@@ -33,7 +31,7 @@ const initialState = {
     newMessageText: "",
 }
 
-export const messagesReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const messagesReducer = (state: InitialStateType = initialState, action: MessagesActionsType): InitialStateType => {
     switch (action.type) {
         case "UPDATE-NEW-MESSAGE-TEXT":
             return {

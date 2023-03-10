@@ -1,33 +1,37 @@
 import React from 'react';
-import {StoreType} from "../../redux/store";
-import {sendMessageAC, updateNewMessageTextAC} from "../../redux/messagesReducer";
+import {InitialStateType, sendMessageAC, updateNewMessageTextAC} from "../../redux/messagesReducer";
 import Dialogs from "./Dialogs";
-import StoreContext from '../../redux/StoreContext';
+
+import {connect} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
 
 
-//
-// type DialogsContainerPropsType = {
-//     store:StoreType
-// }
-export const DialogsContainer = () => {
+type mapStatePropsType = {
+    dialogsPage: InitialStateType
+}
 
-    return (
-        <StoreContext.Consumer>
-            {(store: StoreType) => {
-                const state = store.getState().dialogsPage
+type mapDispatchPropsType = {
+    sendMessage:()=> void
+    updateNewMessage:(newMessageText: string)=> void
+}
+export type DialogsPropsType = mapStatePropsType & mapDispatchPropsType
 
-                const addMessageHandler = () => {
-                    store.dispatch(sendMessageAC())
-                }
-                const onNewMessageChange = (newMessageText: string) => {
-                    store.dispatch(updateNewMessageTextAC(newMessageText))
 
-                }
-                return <Dialogs dialogsPage={state}
-                                sendMessage={addMessageHandler}
-                                updateNewMessage={onNewMessageChange}/>
-            }
-            }
-        </StoreContext.Consumer>
-    )
-};
+const mapStateToProps = (state:AppStateType):mapStatePropsType => {
+    return {
+        dialogsPage: state.dialogsPage
+    }
+}
+const mapDispatchToProps = (dispatch:Dispatch):mapDispatchPropsType => {
+    return {
+        sendMessage:()=>{
+           dispatch(sendMessageAC())
+        },
+        updateNewMessage:(newMessageText: string)=> {
+            dispatch(updateNewMessageTextAC(newMessageText))
+        }
+        }
+}
+
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

@@ -1,0 +1,9 @@
+.userFoto{
+    width: 150px;
+}
+.selectedPage{
+    font-weight: bold;
+}
+.page{
+    cursor: pointer;
+}

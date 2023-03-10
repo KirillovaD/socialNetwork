@@ -8,6 +8,7 @@ export const Navbar = ()=>{
         <nav className={s.nav}>
             <Link to="/profile" >Profile</Link>
             <Link to="/dialogs">Messages</Link>
+            <Link to="/users">Users</Link>
             <Link to="/news">News</Link>
             <Link to="/music">Music</Link>
             <Link to="/settings">Settings</Link>
