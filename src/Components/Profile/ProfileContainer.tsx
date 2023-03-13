@@ -3,34 +3,10 @@ import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
-import {v1} from "uuid";
 import {PostPropsType, setUserProfile} from "../../redux/profileReducer";
 import {toggleFetching} from "../../redux/usersReducer";
-import {withRouter} from "react-router";
+import {withRouter,RouteComponentProps} from "react-router";
 
-
-class ProfileContainer extends React.Component<ProfileDomainType> {
-
-    componentDidMount() {
-        this.props.toggleFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
-            .then((res) => {
-                console.log(res)
-                this.props.toggleFetching(false)
-                this.props.setUserProfile(res.data)
-            })
-    }
-
-    render() {
-        return (
-            <div>
-                <Profile {...this.props} />
-
-            </div>
-        );
-    }
-}
 
 type ContactType = {
     facebook?: string,
@@ -62,7 +38,6 @@ type mapStatePropsType = {
     newPostText: string,
     isFetching: boolean
 
-
 }
 
 type mapDispatchPropsType = {
@@ -71,6 +46,39 @@ type mapDispatchPropsType = {
 }
 
 export type ProfileDomainType = mapStatePropsType & mapDispatchPropsType
+
+type PathParamsType= {
+    userId:string
+}
+
+type PropsType = RouteComponentProps<PathParamsType> & ProfileDomainType
+
+class ProfileContainer extends React.Component<PropsType> {
+
+    componentDidMount() {
+        let userId = this.props.match.params.userId
+        if (!userId){
+            userId = '2';
+        }
+        this.props.toggleFetching(true)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/`+userId)
+            .then((res) => {
+                this.props.toggleFetching(false)
+                this.props.setUserProfile(res.data)
+            })
+    }
+
+    render() {
+        return (
+            <div>
+                <Profile {...this.props} />
+
+            </div>
+        );
+    }
+}
+
+
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
@@ -92,5 +100,5 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 //     }
 // }
 
-
-export default connect(mapStateToProps, {setUserProfile, toggleFetching})(ProfileContainer);
+let WithUrlDataContainerComponent = withRouter(ProfileContainer)
+export default connect(mapStateToProps, {setUserProfile, toggleFetching})(WithUrlDataContainerComponent);

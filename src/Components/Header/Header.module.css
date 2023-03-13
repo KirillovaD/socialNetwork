@@ -2,11 +2,17 @@
     grid-area: h;
     background-color: #4193ff;
     padding: 10px 30px;
-    /*height: 10vh;*/
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
 
 }
 .header img {
     width: 50px;
 
+}
+.loginBlock a{
+  color: #0a182a;
 }

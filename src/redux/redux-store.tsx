@@ -3,6 +3,7 @@ import {profileReducer} from "./profileReducer";
 import {messagesReducer} from "./messagesReducer";
 import {usersReducer} from "./usersReducer";
 import {sidebarReducer} from "./sidebarReducer";
+import {authReducer} from "./authReducer";
 
 
 
@@ -11,6 +12,7 @@ export const rootReducer = combineReducers({
     dialogsPage: messagesReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
+    auth: authReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
