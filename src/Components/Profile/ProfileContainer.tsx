@@ -7,6 +7,7 @@ import {Dispatch} from "redux";
 import {v1} from "uuid";
 import {PostPropsType, setUserProfile} from "../../redux/profileReducer";
 import {toggleFetching} from "../../redux/usersReducer";
+import {withRouter} from "react-router";
 
 
 class ProfileContainer extends React.Component<ProfileDomainType> {
@@ -90,5 +91,6 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 //
 //     }
 // }
+
 
 export default connect(mapStateToProps, {setUserProfile, toggleFetching})(ProfileContainer);

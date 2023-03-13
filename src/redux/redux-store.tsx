@@ -1,4 +1,4 @@
-import {combineReducers, legacy_createStore} from "redux";
+import {combineReducers, createStore} from "redux";
 import {profileReducer} from "./profileReducer";
 import {messagesReducer} from "./messagesReducer";
 import {usersReducer} from "./usersReducer";
@@ -14,7 +14,7 @@ export const rootReducer = combineReducers({
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
-export const store = legacy_createStore(rootReducer)
+export const store = createStore(rootReducer)
 // @ts-ignore
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
 window.store = store;

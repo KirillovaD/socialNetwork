@@ -10,6 +10,6 @@ export const DialogItem = (props: DialogItemPropsType) => {
     const {name, id} = props
     let dialogPath = `/dialogs/${id}`
     return (
-        <NavLink to={dialogPath} className={({isActive}) => isActive ? `${s.active}` : ''}>{name}</NavLink>
+        <NavLink to={dialogPath} className={(isActive) => isActive ? `${s.active}` : ''}>{name}</NavLink>
     )
 }
