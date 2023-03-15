@@ -3,7 +3,9 @@
 }
 .selectedPage{
     font-weight: bold;
+    padding-left: 2px;
 }
 .page{
+    padding-left: 2px;
     cursor: pointer;
 }

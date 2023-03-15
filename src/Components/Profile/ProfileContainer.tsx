@@ -1,11 +1,11 @@
 import React from 'react';
 import {Profile} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {PostPropsType, setUserProfile} from "../../redux/profileReducer";
 import {toggleFetching} from "../../redux/usersReducer";
 import {withRouter,RouteComponentProps} from "react-router";
+import {profileAPI} from "../../api/api";
 
 
 type ContactType = {
@@ -61,10 +61,9 @@ class ProfileContainer extends React.Component<PropsType> {
             userId = '2';
         }
         this.props.toggleFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/`+userId)
-            .then((res) => {
+       profileAPI.getUserProfile(userId).then(data => {
                 this.props.toggleFetching(false)
-                this.props.setUserProfile(res.data)
+                this.props.setUserProfile(data)
             })
     }
 
