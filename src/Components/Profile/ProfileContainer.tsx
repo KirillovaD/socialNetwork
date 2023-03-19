@@ -5,6 +5,7 @@ import {AppStateType} from "../../redux/redux-store";
 import {getUserProfile, PostPropsType} from "../../redux/profileReducer";
 import {toggleFetching} from "../../redux/usersReducer";
 import {withRouter,RouteComponentProps} from "react-router";
+import {Redirect} from "react-router-dom";
 
 
 
@@ -34,9 +35,10 @@ export type ProfileType = {
 
 type mapStatePropsType = {
     profile: ProfileType
-    posts: Array<PostPropsType>,
-    newPostText: string,
+    posts: Array<PostPropsType>
+    newPostText: string
     isFetching: boolean
+    isAuth:boolean
 
 }
 
@@ -63,6 +65,7 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     render() {
+        if(!this.props.isAuth) return <Redirect to={'/login'}/>
         return (
             <div>
                 <Profile {...this.props} />
@@ -79,7 +82,8 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
         profile: state.profilePage.profile,
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText,
-        isFetching: state.usersPage.isFetching
+        isFetching: state.usersPage.isFetching,
+        isAuth: state.auth.isAuth
     }
 }
 // const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
