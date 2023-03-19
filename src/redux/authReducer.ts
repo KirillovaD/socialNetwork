@@ -1,23 +1,12 @@
-type ExtraDataForAuth = {
-    isFetching: boolean
-    isAuth: boolean
-
-}
-
-type UserAuthData = {
-    userId: number | null
-    email: string | null
-    login: string | null
-}
-
-type InitialStateType = UserAuthData & ExtraDataForAuth
+import {authAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 const initialState: InitialStateType = {
     userId: null,
     email: null,
     login: null,
     isFetching: false,
-    isAuth:false
+    isAuth: false
 }
 export const authReducer = (state: InitialStateType = initialState, action: AuthACType): InitialStateType => {
     switch (action.type) {
@@ -32,10 +21,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 
 }
 
-export type AuthACType = ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof toggleFetching>
 
-
+//actions
 export const setAuthUserData = (userId: number, email: string, login: string) => {
     return {
         type: "SET_USER_DATA",
@@ -48,4 +35,29 @@ export const toggleFetching = (isFetching: boolean) => {
         isFetching
     } as const
 }
+//thunks
+export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
+    dispatch(toggleFetching(true))
+    authAPI.getAuth().then((res) => {
+        if (res.data.resultCode === 0) {
+            let {id, email, login} = res.data.data
+            dispatch(setAuthUserData(id, email, login))
+            dispatch(toggleFetching(false))
+        }
+    })
+}
 
+//types
+type ExtraDataForAuth = {
+    isFetching: boolean
+    isAuth: boolean
+
+}
+type UserAuthData = {
+    userId: number | null
+    email: string | null
+    login: string | null
+}
+type InitialStateType = UserAuthData & ExtraDataForAuth
+export type AuthACType = ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof toggleFetching>

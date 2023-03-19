@@ -3,6 +3,7 @@ import s from './ProfileInfo.module.css'
 import contentImg from "../../../assets/images/aesthetic-background-with-patterned-glass-texture.jpg";
 import {ProfileType} from "../ProfileContainer";
 import Preloader from "../../common/Preloader/Preloader";
+import user from "../../../assets/images/user.png"
 
 type ProfileInfoType = {
     profile: ProfileType
@@ -17,9 +18,10 @@ const ProfileInfo = (props: ProfileInfoType) => {
         <>
             <div>
                 <img className={s.profile_img} src={contentImg} alt="content image"/>
+
             </div>
             <div className={s.profileInfoConatiner}>
-                <img className={s.imgLarge} src={props.profile.photos?.large}/>
+                <img className={s.imgLarge} src={props.profile.photos?.large !==null? props.profile.photos?.large: user}/>
                 <div className={s.fullName}>{props.profile.fullName}</div>
                 <div className={s.aboutMe}>{props.profile.aboutMe}</div>
                 <div className={s.contacts}> <h5>Контакты:</h5>

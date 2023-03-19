@@ -1,13 +1,10 @@
 import {v1} from "uuid";
 import {ProfileType} from "../Components/Profile/ProfileContainer";
+import {Dispatch} from "redux";
+import {profileAPI} from "../api/api";
+import {toggleFetching} from "./authReducer";
 
-export type PostPropsType = {
-    id: string
-    message: string
-    likesCount: number
-}
 
-export type InitialState = typeof initialState
 const initialState = {
     posts: [
         {id: v1(), message: 'Hi, how are you?', likesCount: 5},
@@ -48,16 +45,13 @@ export const profileReducer = (state: InitialState = initialState, action: Profi
     }
 }
 
-export type ProfileActionsType = ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostTextAC>
-    | ReturnType<typeof setUserProfile>
 
+//actions
 export const addPostAC = () => {
     return {
         type: "ADD-POST"
     } as const
 }
-
 export const updateNewPostTextAC = (newText: string) => {
     return {
         type: "UPDATE-NEW-POST-TEXT",
@@ -71,3 +65,25 @@ export const setUserProfile = (profile: ProfileType) => {
     } as const
 }
 
+//thunks
+
+export const getUserProfile =(userId: string)=> (dispatch:Dispatch) => {
+    dispatch(toggleFetching(true))
+    profileAPI.getUserProfile(userId).then(data => {
+        dispatch(toggleFetching(false))
+        dispatch(setUserProfile(data))
+    })
+}
+
+//types
+export type PostPropsType = {
+    id: string
+    message: string
+    likesCount: number
+}
+
+export type InitialState = typeof initialState
+
+export type ProfileActionsType = ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfile>

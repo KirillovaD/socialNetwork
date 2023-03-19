@@ -3,22 +3,14 @@ import {Header} from "./Header";
 
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {setAuthUserData} from "../../redux/authReducer";
+import {getAuthUserDataTC} from "../../redux/authReducer";
 import Preloader from "../common/Preloader/Preloader";
-import {toggleFetching} from "../../redux/usersReducer";
-import {authAPI} from "../../api/api";
+
 
 class HeaderContainer extends React.Component<AuthPropsType> {
 
     componentDidMount() {
-        this.props.toggleFetching(true)
-        authAPI.getAuth().then((res) => {
-                if (res.data.resultCode === 0) {
-                    let {id, email, login} = res.data.data
-                    this.props.setAuthUserData(id, email, login)
-                    this.props.toggleFetching(false)
-                }
-            })
+        this.props.getAuthUserDataTC()
     }
 
     render() {
@@ -39,8 +31,7 @@ type mapStatePropsType = {
 }
 export type AuthPropsType = mapStatePropsType & mapDispatchPropsType
 type mapDispatchPropsType = {
-    setAuthUserData: (userId: number, email: string, login: string) => void
-    toggleFetching: (isFetching: boolean) => void
+    getAuthUserDataTC:()=>void
 }
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
@@ -53,5 +44,5 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 }
 
 
-export default connect(mapStateToProps, {setAuthUserData, toggleFetching})(HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserDataTC})(HeaderContainer);
 

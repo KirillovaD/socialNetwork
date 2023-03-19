@@ -2,10 +2,10 @@ import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {PostPropsType, setUserProfile} from "../../redux/profileReducer";
+import {getUserProfile, PostPropsType} from "../../redux/profileReducer";
 import {toggleFetching} from "../../redux/usersReducer";
 import {withRouter,RouteComponentProps} from "react-router";
-import {profileAPI} from "../../api/api";
+
 
 
 type ContactType = {
@@ -41,8 +41,7 @@ type mapStatePropsType = {
 }
 
 type mapDispatchPropsType = {
-    setUserProfile: (profile: ProfileType) => void
-    toggleFetching: (isFetching: boolean) => void
+    getUserProfile:(userId: string)=>void
 }
 
 export type ProfileDomainType = mapStatePropsType & mapDispatchPropsType
@@ -60,11 +59,7 @@ class ProfileContainer extends React.Component<PropsType> {
         if (!userId){
             userId = '2';
         }
-        this.props.toggleFetching(true)
-       profileAPI.getUserProfile(userId).then(data => {
-                this.props.toggleFetching(false)
-                this.props.setUserProfile(data)
-            })
+        this.props.getUserProfile(userId)
     }
 
     render() {
@@ -100,4 +95,4 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 // }
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
-export default connect(mapStateToProps, {setUserProfile, toggleFetching})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {getUserProfile, toggleFetching})(WithUrlDataContainerComponent);
