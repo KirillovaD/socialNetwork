@@ -5,7 +5,9 @@ import {AppStateType} from "../../redux/redux-store";
 import {getUserProfile, PostPropsType} from "../../redux/profileReducer";
 import {toggleFetching} from "../../redux/usersReducer";
 import {withRouter,RouteComponentProps} from "react-router";
-import {Redirect} from "react-router-dom";
+
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 
 
@@ -38,7 +40,6 @@ type mapStatePropsType = {
     posts: Array<PostPropsType>
     newPostText: string
     isFetching: boolean
-    isAuth:boolean
 
 }
 
@@ -65,7 +66,6 @@ class ProfileContainer extends React.Component<PropsType> {
     }
 
     render() {
-        if(!this.props.isAuth) return <Redirect to={'/login'}/>
         return (
             <div>
                 <Profile {...this.props} />
@@ -83,7 +83,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText,
         isFetching: state.usersPage.isFetching,
-        isAuth: state.auth.isAuth
+
     }
 }
 // const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
@@ -98,5 +98,9 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 //     }
 // }
 
-let WithUrlDataContainerComponent = withRouter(ProfileContainer)
-export default connect(mapStateToProps, {getUserProfile, toggleFetching})(WithUrlDataContainerComponent);
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {getUserProfile, toggleFetching}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
