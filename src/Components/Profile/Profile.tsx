@@ -6,10 +6,9 @@ import {ProfileDomainType} from "./ProfileContainer";
 
 export const Profile = (props: ProfileDomainType) => {
 
-
     return (
         <>
-            <ProfileInfo profile={props.profile} isFetching={props.isFetching}/>
+            <ProfileInfo profile={props.profile} isFetching={props.isFetching} status={props.status} updateUserStatus={props.updateUserStatus}/>
             <MyPostsContainer/>
         </>
 

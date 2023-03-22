@@ -9,6 +9,8 @@ import ProfileStatus from "./ProfileStatus";
 type ProfileInfoType = {
     profile: ProfileType
     isFetching: boolean
+    status:string
+    updateUserStatus:(status:string)=>void
 }
 
 const ProfileInfo = (props: ProfileInfoType) => {
@@ -23,7 +25,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
             {/*</div>*/}
             <div className={s.profileInfoConatiner}>
                 <img className={s.imgLarge} src={props.profile.photos?.large !==null? props.profile.photos?.large: user}/>
-                <ProfileStatus status={'Hello my friends!!!'}/>
+                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus}/>
                 <div className={s.fullName}>{props.profile.fullName}</div>
                 <div className={s.aboutMe}>{props.profile.aboutMe}</div>
                 <div className={s.contacts}> <h5>Контакты:</h5>

@@ -2,13 +2,12 @@ import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {getUserProfile, PostPropsType} from "../../redux/profileReducer";
+import {getUserProfile, getUserStatus, PostPropsType, updateUserStatus} from "../../redux/profileReducer";
 import {toggleFetching} from "../../redux/usersReducer";
-import {withRouter,RouteComponentProps} from "react-router";
+import {withRouter, RouteComponentProps} from "react-router";
 
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-
 
 
 type ContactType = {
@@ -40,17 +39,20 @@ type mapStatePropsType = {
     posts: Array<PostPropsType>
     newPostText: string
     isFetching: boolean
+    status: string
 
 }
 
 type mapDispatchPropsType = {
-    getUserProfile:(userId: string)=>void
+    getUserProfile: (userId: string) => void
+    getUserStatus: (userId: string) => void
+    updateUserStatus: (status: string) => void
 }
 
 export type ProfileDomainType = mapStatePropsType & mapDispatchPropsType
 
-type PathParamsType= {
-    userId:string
+type PathParamsType = {
+    userId: string
 }
 
 type PropsType = RouteComponentProps<PathParamsType> & ProfileDomainType
@@ -59,22 +61,22 @@ class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if (!userId){
+        if (!userId) {
             userId = '2';
         }
         this.props.getUserProfile(userId)
+        this.props.getUserStatus(userId)
     }
 
     render() {
         return (
             <div>
-                <Profile {...this.props} />
+                <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
 
             </div>
         );
     }
 }
-
 
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
@@ -83,6 +85,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText,
         isFetching: state.usersPage.isFetching,
+        status: state.profilePage.status
 
     }
 }
@@ -100,7 +103,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, {getUserProfile, toggleFetching}),
+    connect(mapStateToProps, {getUserProfile, toggleFetching, getUserStatus, updateUserStatus}),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)
