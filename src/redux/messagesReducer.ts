@@ -1,16 +1,4 @@
 
-
-export type DialogType = {
-    id: number
-    name: string
-    avatar: string
-}
-export type MessageType = {
-    id: number
-    message: string
-}
-
-export type InitialStateType = typeof initialState
 const initialState = {
     dialogs: [
         {id: 1, name: 'Dmitrii', avatar: 'https://s00.yaplakal.com/pics/pics_original/8/3/6/1343638.jpg'},
@@ -28,21 +16,15 @@ const initialState = {
         {id: 3, message: 'How are you?'},
         {id: 4, message: 'Yo'}
     ] as Array<MessageType>,
-    newMessageText: "",
+
 }
 
 export const messagesReducer = (state: InitialStateType = initialState, action: MessagesActionsType): InitialStateType => {
     switch (action.type) {
-        case "UPDATE-NEW-MESSAGE-TEXT":
-            return {
-                ...state,
-                newMessageText: action.newMessage
-            }
         case "SEND-MESSAGE":
-            let newMessage = {id: 5, message: state.newMessageText}
+            let newMessage = {id: 5, message: action.newMessageBody}
             return {
                 ...state,
-                newMessageText: '',
                 messages: [...state.messages, newMessage]
             }
         default:
@@ -50,20 +32,25 @@ export const messagesReducer = (state: InitialStateType = initialState, action: 
     }
 }
 
-export type MessagesActionsType = ReturnType<typeof updateNewMessageTextAC>
-    | ReturnType<typeof sendMessageAC>
-
-
-export const updateNewMessageTextAC = (newMessage: string) => {
-    return {
-        type: "UPDATE-NEW-MESSAGE-TEXT",
-        newMessage: newMessage
-    } as const
-}
-
-export const sendMessageAC = () => {
+//actions
+export const sendMessageAC = (newMessageBody:string) => {
     return {
         type: "SEND-MESSAGE",
+        newMessageBody
     } as const
 }
 
+//types
+
+export type DialogType = {
+    id: number
+    name: string
+    avatar: string
+}
+export type MessageType = {
+    id: number
+    message: string
+}
+
+export type InitialStateType = typeof initialState
+export type MessagesActionsType = ReturnType<typeof sendMessageAC>

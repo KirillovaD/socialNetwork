@@ -37,7 +37,6 @@ export type ProfileType = {
 type mapStatePropsType = {
     profile: ProfileType
     posts: Array<PostPropsType>
-    newPostText: string
     isFetching: boolean
     status: string
 
@@ -83,7 +82,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
         profile: state.profilePage.profile,
         posts: state.profilePage.posts,
-        newPostText: state.profilePage.newPostText,
+
         isFetching: state.usersPage.isFetching,
         status: state.profilePage.status
 

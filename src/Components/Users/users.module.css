@@ -1,5 +1,12 @@
 .userFoto,.loaderImg{
     width: 150px;
+
+}
+.loaderImg{
+    top: 25vh;
+    left: 45%;
+
+    position: absolute;
 }
 .selectedPage{
     font-weight: bold;

@@ -4,7 +4,7 @@ import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {getAuthUserDataTC} from "../../redux/authReducer";
-import Preloader from "../common/Preloader/Preloader";
+
 
 
 class HeaderContainer extends React.Component<AuthPropsType> {
@@ -15,7 +15,7 @@ class HeaderContainer extends React.Component<AuthPropsType> {
 
     render() {
         return <>
-            <Preloader isFetching={this.props.isFetching}/>
+            {/*<Preloader isFetching={this.props.isFetching}/>*/}
             <Header {...this.props}/>
         </>;
     }
