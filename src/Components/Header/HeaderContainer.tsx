@@ -3,7 +3,8 @@ import {Header} from "./Header";
 
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {getAuthUserDataTC} from "../../redux/authReducer";
+import {getAuthUserDataTC, logoutTC} from "../../redux/authReducer";
+import Preloader from "../common/Preloader/Preloader";
 
 
 
@@ -15,7 +16,7 @@ class HeaderContainer extends React.Component<AuthPropsType> {
 
     render() {
         return <>
-            {/*<Preloader isFetching={this.props.isFetching}/>*/}
+            <Preloader isFetching={this.props.isFetching}/>
             <Header {...this.props}/>
         </>;
     }
@@ -32,10 +33,11 @@ type mapStatePropsType = {
 export type AuthPropsType = mapStatePropsType & mapDispatchPropsType
 type mapDispatchPropsType = {
     getAuthUserDataTC:()=>void
+    logoutTC:()=>void
 }
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
-        userId: state.auth.userId,
+        userId: state.auth.id,
         email: state.auth.email,
         login: state.auth.login,
         isFetching: state.auth.isFetching,
@@ -44,5 +46,5 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 }
 
 
-export default connect(mapStateToProps, {getAuthUserDataTC})(HeaderContainer);
+export default connect(mapStateToProps, {getAuthUserDataTC,logoutTC})(HeaderContainer);
 
