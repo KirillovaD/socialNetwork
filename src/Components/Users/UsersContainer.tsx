@@ -37,6 +37,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
                 unfollow={this.props.unfollow}
                 onPageChanged={this.onPageChanged}
                 followingInProgress={this.props.followingInProgress}
+                isAuth = {this.props.isAuth}
 
 
             />
@@ -51,6 +52,7 @@ type mapStatePropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress: boolean
+    isAuth: boolean
 
 }
 
@@ -70,7 +72,8 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress,
+        isAuth: state.auth.isAuth
     }
 }
 

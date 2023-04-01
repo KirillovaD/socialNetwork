@@ -1,5 +1,6 @@
 import {authAPI, AuthUserType} from "../api/api";
 import {Dispatch} from "redux";
+import {stopSubmit} from "redux-form";
 
 
 const initialState: InitialStateType = {
@@ -25,10 +26,10 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 
 
 //actions
-export const setAuthUserData = (userId:null| number, email: null|string, login: null|string) => {
+export const setAuthUserData = (id:null| number, email: null|string, login: null|string) => {
     return {
         type: "SET_USER_DATA",
-        data: {userId, email, login}
+        data: {id, email, login}
     } as const
 }
 
@@ -45,7 +46,7 @@ export const toggleFetching = (isFetching: boolean) => {
 //thunks
 export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
-    authAPI.getAuth().then((res) => {
+    return authAPI.me().then((res) => {
         if (res.data.resultCode === 0) {
             let {id, email, login} = res.data.data
             dispatch(setAuthUserData(id, email, login))
@@ -60,8 +61,15 @@ export const loginTC = (email:string, password:string, rememberMe:boolean) => (d
         if (res.data.resultCode === 0) {
             dispatch(toggleFetching(false))
             dispatch(setIsAuthAC(true))
+
+        } else {
+            let message = res.data.messages.length ? res.data.messages[0]: 'Some error'
+            dispatch(stopSubmit('login', {_error:message}))
         }
+    }).finally(()=>{
+        dispatch(toggleFetching(false))
     })
+
 }
 
 export const logoutTC = () => (dispatch: Dispatch) => {

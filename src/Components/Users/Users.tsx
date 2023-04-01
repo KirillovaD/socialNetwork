@@ -5,7 +5,6 @@ import {UserType} from "../../redux/usersReducer";
 import {Link} from "react-router-dom";
 
 
-
 type UsersPresentationType = {
     users: Array<UserType>
     pageSize: number
@@ -15,6 +14,7 @@ type UsersPresentationType = {
     unfollow: (userId: number) => void
     onPageChanged: (p: number) => void
     followingInProgress: boolean
+    isAuth: boolean
 }
 
 const Users = (props: UsersPresentationType) => {
@@ -33,7 +33,8 @@ const Users = (props: UsersPresentationType) => {
                                  }}>{p}</span>
                 })}
             </div>
-            <div>{props.users.map(u => <div key={u.id}>
+            {props.isAuth?
+                <div>{props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <Link to={"/profile/" + u.id}>
@@ -42,8 +43,12 @@ const Users = (props: UsersPresentationType) => {
                     </div>
                     <div>
                         {u.followed ?
-                            <button disabled={props.followingInProgress} onClick={() => {props.unfollow(u.id)}}>Unfollow</button>
-                            : <button disabled={props.followingInProgress} onClick={() => {props.follow(u.id)}}>Follow</button>}
+                            <button disabled={props.followingInProgress} onClick={() => {
+                                props.unfollow(u.id)
+                            }}>Unfollow</button>
+                            : <button disabled={props.followingInProgress} onClick={() => {
+                                props.follow(u.id)
+                            }}>Follow</button>}
                             </div>
                             </span>
                 <span>
@@ -58,7 +63,29 @@ const Users = (props: UsersPresentationType) => {
 
                             </span>
             </div>)}
-            </div>
+            </div>:
+                <div>{props.users.map(u => <div key={u.id}>
+                <span>
+                    <div>
+                        <Link to={"/profile/" + u.id}>
+                        <img src={u.photos.small !== null ? u.photos.small : user} className={s.userFoto}/>
+                        </Link>
+                    </div>
+                            </span>
+                    <span>
+                            <span>
+                            <div>{u.name}</div>
+                            <div>{u.status}</div>
+                            </span>
+                            <span>
+                            <div>{u.location?.country}</div>
+                            <div>{u.location?.city}</div>
+                            </span>
+
+                            </span>
+                </div>)}
+                </div>}
+
         </div>
     );
 };

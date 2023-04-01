@@ -1,5 +1,7 @@
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 
 const initialState: InitialStateType = {
@@ -80,7 +82,7 @@ export const toggleFollowingInProgress = (followingInProgress: boolean) => {
 }
 
 //thunks
-export const getUsersTC = (currentPage:number,pageSize:number) => (dispatch: Dispatch<UsersACType>) => {
+export const getUsersTC = (currentPage:number,pageSize:number):ThunkAction<void, AppStateType, unknown, UsersACType> => (dispatch) => {
     dispatch(toggleFetching(true))
     usersAPI.getUsers(currentPage, pageSize).then(data => {
         dispatch(toggleFetching(false));

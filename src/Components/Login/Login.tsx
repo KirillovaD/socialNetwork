@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {loginTC} from "../../redux/authReducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
+import s from '../common/FormsControls/FormsControls.module.css'
 
 
 const Login = (props: LoginPropsType) => {
@@ -32,6 +33,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                         name={'email'}
                         placeholder={'Email'}
                         validate={[required]}
+                        autoComplete={"current-password"}
             /></div>
             <div><Field component={FormControl}
                         elementType={'input'}
@@ -39,6 +41,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                         type={'password'}
                         placeholder={'Password'}
                         validate={[required]}
+                        autoComplete={"current-password"}
             /></div>
             <div><Field component={FormControl}
                         elementType={'input'}
@@ -46,6 +49,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                         type={'checkbox'}
             /> remember me
             </div>
+            {props.error && <div className={s.formSummeryError}>{props.error}</div>}
             <div>
                 <button>Login</button>
             </div>

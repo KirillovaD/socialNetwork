@@ -13,8 +13,8 @@ const initialState = {
 
     ] as Array<PostPropsType>,
     profile: {
-        fullName: "Daria",
-        userId: 11111
+        fullName: null as null|string,
+        userId: null as null | number
     },
     status: ""
 

@@ -30,7 +30,7 @@ export const profileAPI = {
 }
 
 export const authAPI = {
-    getAuth() {
+    me() {
         return instance.get<ResponseType<AuthUserType>>(`auth/me`)
     },
     // login({email:string, password:string}) {
