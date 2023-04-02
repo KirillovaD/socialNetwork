@@ -13,8 +13,8 @@ const initialState = {
 
     ] as Array<PostPropsType>,
     profile: {
-        fullName: null as null|string,
-        userId: null as null | number
+        fullName: "",
+        userId: null as null|number
     },
     status: ""
 
@@ -29,7 +29,6 @@ export const profileReducer = (state: InitialState = initialState, action: Profi
                 posts: [...state.posts, newPost]
 
             }
-
         case "SET-USER-PROFILE":
             return {
                 ...state,
@@ -74,6 +73,7 @@ export const setUserStatus = (status: string) => {
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
     profileAPI.getUserProfile(userId).then(data => {
+        debugger
         dispatch(toggleFetching(false))
         dispatch(setUserProfile(data))
     })
@@ -82,6 +82,7 @@ export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
 export const getUserStatus = (userId: string) => (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
     profileAPI.getStatus(userId).then(data => {
+        debugger
         dispatch(toggleFetching(false))
         dispatch(setUserStatus(data))
     })

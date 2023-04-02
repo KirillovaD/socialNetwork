@@ -1,28 +1,52 @@
 import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {FormControl} from "../../common/FormsControls/FormsContrlos";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
+import { Formik, Form, Field } from 'formik';
+import {sendMessageAC} from "../../../redux/messagesReducer";
+import {useAppDispatch} from "../../../redux/redux-store";
 
-
-const maxLength =maxLengthCreator(50)
-const AddMessageForm: React.FC<InjectedFormProps<MessageDataType>> = (props) => (
-
-    <form onSubmit={props.handleSubmit}>
-        <div><Field name="message"
-                    component={FormControl}
-                    placeholder='Enter your message'
-                    validate={[required,maxLength]}
-                    elementType={'textarea'}
-        />
-        </div>
-        <div>
-            <button>Add message</button>
-        </div>
-
-
-    </form>
-);
-export const AddMessageReduxForm = reduxForm<MessageDataType>({form: 'dialogAddMessageForm'})(AddMessageForm)
-export type MessageDataType = {
-    message: string
+interface Values {
+    message: string;
 }
+
+function validateMessage(value:string) {
+    let error;
+    if (!value) {
+        error = 'Required';
+    } else if (value.length > 50) {
+        error = 'Your message is too long';
+    }
+    return error;
+}
+
+export const AddMessageForm = () => {
+    const dispatch = useAppDispatch()
+    return (
+        <div>
+            <Formik
+                initialValues={{
+                    message: '',
+                }}
+                onSubmit={(
+                    values: Values,
+                    { resetForm }
+                ) => {
+                    dispatch(sendMessageAC(values.message))
+                    resetForm();
+                }}
+            >
+                {({ errors, touched, isValidating }) => (
+                <Form>
+                    <Field
+                        id="message"
+                        name="message"
+                        component="textarea"
+                        placeholder="Enter your message"
+                        validate={validateMessage}
+                    />
+                    {errors.message && touched.message && <div>{errors.message}</div>}
+                    <button type="submit">Add message</button>
+                </Form>)}
+            </Formik>
+        </div>
+    );
+};
+

@@ -19,9 +19,11 @@ export const usersAPI = {
 }
 export const profileAPI = {
     getUserProfile(userId: string) {
+        debugger
         return instance.get<ProfileType>(`profile/` + userId).then(res => res.data)
     },
     getStatus(userId: string) {
+        debugger
         return instance.get(`profile/status/` + userId).then(res => res.data)
     },
     updateStatus(status: string) {
@@ -33,9 +35,6 @@ export const authAPI = {
     me() {
         return instance.get<ResponseType<AuthUserType>>(`auth/me`)
     },
-    // login({email:string, password:string}) {
-    //     return instance.post('auth/login', {email:string, password:string})
-    // },
     login(email:string, password:string, rememberMe:boolean=false) {
         return instance.post<{ data: string }, AxiosResponse<ResponseType<{ userId: number }>>>('auth/login', {email, password, rememberMe})
     },

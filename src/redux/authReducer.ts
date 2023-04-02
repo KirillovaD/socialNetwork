@@ -1,6 +1,10 @@
 import {authAPI, AuthUserType} from "../api/api";
-import {Dispatch} from "redux";
+import {AnyAction, Dispatch} from "redux";
 import {stopSubmit} from "redux-form";
+import {getUserProfile} from "./profileReducer";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
+
 
 
 const initialState: InitialStateType = {
@@ -55,12 +59,14 @@ export const getAuthUserDataTC = () => (dispatch: Dispatch) => {
     })
 }
 
-export const loginTC = (email:string, password:string, rememberMe:boolean) => (dispatch: Dispatch) => {
+export const loginTC = (email:string, password:string, rememberMe:boolean):ThunkAction<void, AppStateType, unknown, AnyAction> => (dispatch) => {
     dispatch(toggleFetching(true))
     authAPI.login(email, password, rememberMe).then((res) => {
         if (res.data.resultCode === 0) {
+            debugger
             dispatch(toggleFetching(false))
             dispatch(setIsAuthAC(true))
+            dispatch(getUserProfile((res.data.data.userId).toString()))
 
         } else {
             let message = res.data.messages.length ? res.data.messages[0]: 'Some error'

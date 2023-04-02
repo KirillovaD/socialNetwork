@@ -1,31 +1,53 @@
 import React from "react";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
-import {maxLengthCreator, required} from "../../../utils/validators/validators";
-import {FormControl} from "../../common/FormsControls/FormsContrlos";
+import {useAppDispatch} from "../../../redux/redux-store";
+import { Formik, Form, Field } from 'formik';
+import {addPostAC} from "../../../redux/profileReducer";
 
 
-const maxLength =maxLengthCreator(30)
-
-const AddNewPostForm: React.FC<InjectedFormProps<PostFormDataType>> = (props) => {
-
-
-    return <form onSubmit={props.handleSubmit}>
-        <div>
-            <Field name="newPostText"
-                   component={FormControl}
-                   className="form-textarea"
-                   validate={[required,maxLength]}
-                   elementType={'textarea'}
-            />
-        </div>
-        <div><button>Add post</button></div>
-    </form>
+interface Values {
+    newPostText: string;
 }
 
+function validateMessage(value:string) {
+    let error;
+    if (!value) {
+        error = 'Required';
+    } else if (value.length > 30) {
+        error = 'Your text is too long';
+    }
+    return error;
+}
 
-export const AddNewPostFormReduxForm = reduxForm
-    <PostFormDataType>({form: 'profileAddPostForm'})(AddNewPostForm)
+export const AddNewPostForm = () => {
+    const dispatch = useAppDispatch()
+    return (
+        <div>
+            <Formik
+                initialValues={{
+                    newPostText: '',
+                }}
+                onSubmit={(
+                    values: Values,
+                    { resetForm }
+                ) => {
+                    dispatch(addPostAC(values.newPostText))
+                    resetForm();
+                }}
+            >
+                {({ errors, touched, isValidating }) => (
+                    <Form>
+                        <Field
+                            id="newPostText"
+                            name="newPostText"
+                            component="textarea"
+                            placeholder="Enter your text"
+                            validate={validateMessage}
+                        />
+                        {errors.newPostText && touched.newPostText && <div>{errors.newPostText}</div>}
+                        <button type="submit">Add post</button>
+                    </Form>)}
+            </Formik>
+        </div>
+    );
+};
 
-export type PostFormDataType = {
-            newPostText: string
-        }

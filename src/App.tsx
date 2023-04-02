@@ -1,22 +1,21 @@
 import React from 'react';
 import './App.css';
 import {Navbar} from "./Components/Navbar/Navbar";
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import News from "./Components/News/News";
 import Music from "./Components/Music/Music";
 import Settings from "./Components/Settings/Settings";
 import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
 import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
-import HeaderContainer, {AuthPropsType} from "./Components/Header/HeaderContainer";
-import Login from "./Components/Login/Login";
+import HeaderContainer from "./Components/Header/HeaderContainer";
 import {connect} from "react-redux";
-import {getAuthUserDataTC, logoutTC} from "./redux/authReducer";
 import {initializeAppTC} from "./redux/appReducer";
 import {withRouter} from "react-router";
 import {compose} from "redux";
 import {AppStateType} from "./redux/redux-store";
 import Preloader from "./Components/common/Preloader/Preloader";
+import LoginFormik from "./Components/Login/Login";
 
 
 class App extends React.Component<AppPropsType> {
@@ -35,7 +34,7 @@ class App extends React.Component<AppPropsType> {
                     <HeaderContainer/>
                     <Navbar/>
                     <div className="app-wrapper-content">
-                        <Route render={() => <Login/>} path='/login'/>
+                        <Route render={() => <LoginFormik/>} path='/login'/>
                         <Route render={() => <DialogsContainer/>} path='/dialogs'/>
                         <Route render={() => <ProfileContainer/>} path='/profile/:userId?'/>
                         <Route render={() => <UsersContainer/>} path='/users'/>

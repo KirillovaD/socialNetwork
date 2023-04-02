@@ -14,12 +14,21 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileDomainType
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
-        if (!userId && this.props.authirizedUserId !== null) {
-            userId = this.props.authirizedUserId.toString()
+        debugger
+        let userId =this.props.match.params.userId
+        if (!userId && this.props.profile!==null) {
+            // userId = this.props.profile.userId
         }
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
+
+
+        // let userId = this.props.match.params.userId
+        // if (!userId) {
+        //     userId = '2';
+        // }
+        // this.props.getUserProfile(userId)
+        // this.props.getUserStatus(userId)
     }
 
     render() {
@@ -45,18 +54,6 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
 
     }
 }
-// const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
-//     return {
-//         setUserProfile: (userID: number) => {
-//             dispatch(setUserProfile(userID))
-//         },
-//         toggleFetching: (isFetching: boolean) => {
-//             dispatch(toggleFetchingAC(isFetching))
-//         }
-//
-//     }
-// }
-
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {getUserProfile, toggleFetching, getUserStatus, updateUserStatus}),
@@ -65,6 +62,7 @@ export default compose<React.ComponentType>(
 )(ProfileContainer)
 
 
+//types
 //types
 type ContactType = {
     facebook?: string,
@@ -85,8 +83,8 @@ export type ProfileType = {
     contacts?: ContactType,
     lookingForAJob?: boolean,
     lookingForAJobDescription?: string,
-    fullName: string | null,
-    userId: number | null,
+    fullName: string,
+    userId: null|number,
     photos?: PhotosType
 }
 type mapStatePropsType = {
