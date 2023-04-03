@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Form, Field } from 'formik';
-import {sendMessageAC} from "../../../redux/messagesReducer";
+import {sendMessageAC} from "../../../redux/dialogs-reducer";
 import {useAppDispatch} from "../../../redux/redux-store";
 
 interface Values {

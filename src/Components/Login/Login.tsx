@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {loginTC} from "../../redux/authReducer";
+import {loginTC} from "../../redux/auth-reducer";
 import {AppStateType, useAppDispatch} from "../../redux/redux-store";
 import {Redirect} from "react-router-dom";
 import s from './Login.module.css'

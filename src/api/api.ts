@@ -18,12 +18,10 @@ export const usersAPI = {
     }
 }
 export const profileAPI = {
-    getUserProfile(userId: string) {
-        debugger
+    getUserProfile(userId: number) {
         return instance.get<ProfileType>(`profile/` + userId).then(res => res.data)
     },
-    getStatus(userId: string) {
-        debugger
+    getStatus(userId: number) {
         return instance.get(`profile/status/` + userId).then(res => res.data)
     },
     updateStatus(status: string) {
@@ -35,19 +33,18 @@ export const authAPI = {
     me() {
         return instance.get<ResponseType<AuthUserType>>(`auth/me`)
     },
-    login(email:string, password:string, rememberMe:boolean=false) {
-        return instance.post<{ data: string }, AxiosResponse<ResponseType<{ userId: number }>>>('auth/login', {email, password, rememberMe})
+    login(email: string, password: string, rememberMe: boolean = false) {
+
+        return instance.post<{ data: string }, AxiosResponse<ResponseType<{ userId: number }>>>('auth/login', {
+            email,
+            password,
+            rememberMe
+        })
     },
     logout() {
         return instance.delete<ResponseType>('auth/login')
     }
 
-}
-
-export type AuthUserType = {
-    id: null | number
-    email: null | string
-    login: null | string
 }
 
 
@@ -62,4 +59,9 @@ export type ResponseType<D = {}> = {
     messages: Array<string>
     fieldsErrors: Array<string>
     data: D
+}
+type AuthUserType = {
+    id: number
+    email: string
+    login: string
 }

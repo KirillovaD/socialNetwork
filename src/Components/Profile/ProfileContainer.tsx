@@ -14,21 +14,13 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfileDomainType
 class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
-        debugger
-        let userId =this.props.match.params.userId
-        if (!userId && this.props.profile!==null) {
-            // userId = this.props.profile.userId
+        let userId =Number(this.props.match.params.userId)
+        if (!userId && this.props.authirizedUserId!==null) {
+            userId = this.props.authirizedUserId
         }
         this.props.getUserProfile(userId)
         this.props.getUserStatus(userId)
 
-
-        // let userId = this.props.match.params.userId
-        // if (!userId) {
-        //     userId = '2';
-        // }
-        // this.props.getUserProfile(userId)
-        // this.props.getUserStatus(userId)
     }
 
     render() {
@@ -47,7 +39,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
         profile: state.profilePage.profile,
         posts: state.profilePage.posts,
-        authirizedUserId: state.auth.id,
+        authirizedUserId: state.auth.userId,
         isFetching: state.usersPage.isFetching,
         status: state.profilePage.status,
         isAuth: state.auth.isAuth
@@ -75,16 +67,16 @@ type ContactType = {
     "mainLink"?: string
 }
 type PhotosType = {
-    small?: string,
-    large?: string,
+    small?: string
+    large?: string
 }
 export type ProfileType = {
-    aboutMe?: string,
-    contacts?: ContactType,
-    lookingForAJob?: boolean,
-    lookingForAJobDescription?: string,
-    fullName: string,
-    userId: null|number,
+    aboutMe?: string
+    contacts?: ContactType
+    lookingForAJob?: boolean
+    lookingForAJobDescription?: string
+    fullName: string
+    userId: number
     photos?: PhotosType
 }
 type mapStatePropsType = {
@@ -97,8 +89,8 @@ type mapStatePropsType = {
 
 }
 type mapDispatchPropsType = {
-    getUserProfile: (userId: string) => void
-    getUserStatus: (userId: string) => void
+    getUserProfile: (userId: number) => void
+    getUserStatus: (userId: number) => void
     updateUserStatus: (status: string) => void
 }
 export type ProfileDomainType = mapStatePropsType & mapDispatchPropsType

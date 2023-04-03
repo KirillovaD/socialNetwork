@@ -19,10 +19,11 @@ const initialState = {
 
 }
 
-export const messagesReducer = (state: InitialStateType = initialState, action: MessagesActionsType): InitialStateType => {
+export const dialogsReducer = (state: InitialStateType = initialState, action: MessagesActionsType): InitialStateType => {
     switch (action.type) {
         case "SEND-MESSAGE":
-            let newMessage = {id: 5, message: action.newMessageBody}
+            let newId= state.messages[state.messages.length-1].id + 1
+            let newMessage = {id:newId, message: action.newMessageBody}
             return {
                 ...state,
                 messages: [...state.messages, newMessage]

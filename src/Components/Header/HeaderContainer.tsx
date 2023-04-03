@@ -2,8 +2,8 @@ import React from 'react';
 import {Header} from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {logoutTC} from "../../redux/authReducer";
-import Preloader from "../common/Preloader/Preloader";
+import {logoutTC} from "../../redux/auth-reducer";
+
 
 class HeaderContainer extends React.Component<AuthPropsType> {
 
@@ -30,7 +30,7 @@ type mapDispatchPropsType = {
 }
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
-        userId: state.auth.id,
+        userId: state.auth.userId,
         email: state.auth.email,
         login: state.auth.login,
         isFetching: state.auth.isFetching,

@@ -2,7 +2,7 @@ import {v1} from "uuid";
 import {ProfileType} from "../Components/Profile/ProfileContainer";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
-import {toggleFetching} from "./authReducer";
+import {toggleFetching} from "./auth-reducer";
 
 
 const initialState = {
@@ -14,7 +14,7 @@ const initialState = {
     ] as Array<PostPropsType>,
     profile: {
         fullName: "",
-        userId: null as null|number
+        userId: 0
     },
     status: ""
 
@@ -70,19 +70,18 @@ export const setUserStatus = (status: string) => {
 
 //thunks
 
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
     profileAPI.getUserProfile(userId).then(data => {
-        debugger
         dispatch(toggleFetching(false))
         dispatch(setUserProfile(data))
     })
 }
 
-export const getUserStatus = (userId: string) => (dispatch: Dispatch) => {
+export const getUserStatus = (userId: number) => (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
     profileAPI.getStatus(userId).then(data => {
-        debugger
+
         dispatch(toggleFetching(false))
         dispatch(setUserStatus(data))
     })

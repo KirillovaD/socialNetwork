@@ -10,7 +10,7 @@ import UsersContainer from "./Components/Users/UsersContainer";
 import ProfileContainer from "./Components/Profile/ProfileContainer";
 import HeaderContainer from "./Components/Header/HeaderContainer";
 import {connect} from "react-redux";
-import {initializeAppTC} from "./redux/appReducer";
+import {initializeAppTC} from "./redux/app-reducer";
 import {withRouter} from "react-router";
 import {compose} from "redux";
 import {AppStateType} from "./redux/redux-store";

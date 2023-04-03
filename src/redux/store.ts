@@ -1,7 +1,7 @@
 import {message} from "antd";
 import {v1} from 'uuid';
 import {ProfileActionsType, profileReducer} from "./profileReducer";
-import {MessagesActionsType, messagesReducer} from "./messagesReducer";
+import {MessagesActionsType} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebarReducer";
 
 //
