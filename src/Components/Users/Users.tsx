@@ -1,8 +1,9 @@
 import React from 'react';
 import s from "./users.module.css";
 import user from "../../assets/images/user.png";
-import {UserType} from "../../redux/usersReducer";
+
 import {Link} from "react-router-dom";
+import {UserType} from "../../types/types";
 
 
 type UsersPresentationType = {

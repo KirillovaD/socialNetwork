@@ -1,8 +1,8 @@
 import {message} from "antd";
 import {v1} from 'uuid';
-import {ProfileActionsType, profileReducer} from "./profileReducer";
+import {ProfileActionsType, profileReducer} from "./profile-reducer";
 import {MessagesActionsType} from "./dialogs-reducer";
-import {sidebarReducer} from "./sidebarReducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 //
 // export type PostPropsType = {

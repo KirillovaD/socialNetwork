@@ -1,8 +1,8 @@
 import React from 'react';
-import {PostPropsType} from "../../../redux/profileReducer";
 import {MyPosts} from "./MyPosts";
 import {AppStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
+import {PostPropsType} from "../../../types/types";
 
 
 type mapStatePropsType = {

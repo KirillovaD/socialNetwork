@@ -1,13 +1,14 @@
 import React from 'react';
 import s from './ProfileInfo.module.css'
 import contentImg from "../../../assets/images/aesthetic-background-with-patterned-glass-texture.jpg";
-import {ProfileType} from "../ProfileContainer";
+
 import Preloader from "../../common/Preloader/Preloader";
 import user from "../../../assets/images/user.png"
 import ProfileStatus from "./ProfileStatus";
+import {ProfileType} from "../../../types/types";
 
 type ProfileInfoType = {
-    profile: ProfileType
+    profile: ProfileType | null
     isFetching: boolean
     status:string
     updateUserStatus:(status:string)=>void

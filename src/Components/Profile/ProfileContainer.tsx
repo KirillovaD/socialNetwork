@@ -2,11 +2,12 @@ import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {getUserProfile, getUserStatus, PostPropsType, updateUserStatus} from "../../redux/profileReducer";
-import {toggleFetching} from "../../redux/usersReducer";
+import {getUserProfile, getUserStatus, updateUserStatus} from "../../redux/profile-reducer";
+import {toggleFetching} from "../../redux/users-reducer";
 import {withRouter, RouteComponentProps} from "react-router";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {PostPropsType, ProfileType} from "../../types/types";
 
 
 type PropsType = RouteComponentProps<PathParamsType> & ProfileDomainType
@@ -55,32 +56,10 @@ export default compose<React.ComponentType>(
 
 
 //types
-//types
-type ContactType = {
-    facebook?: string,
-    website?: string,
-    "vk"?: string,
-    "twitter"?: string,
-    "instagram"?: string,
-    "youtube"?: string,
-    "github"?: string,
-    "mainLink"?: string
-}
-type PhotosType = {
-    small?: string
-    large?: string
-}
-export type ProfileType = {
-    aboutMe?: string
-    contacts?: ContactType
-    lookingForAJob?: boolean
-    lookingForAJobDescription?: string
-    fullName: string
-    userId: number
-    photos?: PhotosType
-}
+
+
 type mapStatePropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     posts: Array<PostPropsType>
     authirizedUserId: number | null
     isFetching: boolean

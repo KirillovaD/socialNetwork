@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
+import {UserType} from "../types/types";
 
 
 const initialState: InitialStateType = {
@@ -84,6 +85,7 @@ export const toggleFollowingInProgress = (followingInProgress: boolean) => {
 //thunks
 export const getUsersTC = (currentPage:number,pageSize:number):ThunkAction<void, AppStateType, unknown, UsersACType> => (dispatch) => {
     dispatch(toggleFetching(true))
+    dispatch(setCurrentPage(currentPage))
     usersAPI.getUsers(currentPage, pageSize).then(data => {
         dispatch(toggleFetching(false));
         dispatch(setUsers(data.items));
@@ -120,22 +122,8 @@ export type InitialStateType = {
     followingInProgress: boolean
 
 }
-export type UserType = {
-    id: number
-    photos: {
-        large: string,
-        small: string
-    }
-    followed: boolean
-    name: string
-    status: string
-    location?: LocationUserType
-    uniqueUrlName: null
-}
-type LocationUserType = {
-    city: string
-    country: string
-}
+
+
 
 export type UsersACType = ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>

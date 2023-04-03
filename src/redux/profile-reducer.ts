@@ -1,8 +1,8 @@
 import {v1} from "uuid";
-import {ProfileType} from "../Components/Profile/ProfileContainer";
 import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 import {toggleFetching} from "./auth-reducer";
+import {PostPropsType, ProfileType} from "../types/types";
 
 
 const initialState = {
@@ -12,10 +12,7 @@ const initialState = {
         {id: v1(), message: "Blabla", likesCount: 0}
 
     ] as Array<PostPropsType>,
-    profile: {
-        fullName: "",
-        userId: 0
-    },
+    profile: null as ProfileType | null,
     status: ""
 
 }
@@ -81,7 +78,6 @@ export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
 export const getUserStatus = (userId: number) => (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
     profileAPI.getStatus(userId).then(data => {
-
         dispatch(toggleFetching(false))
         dispatch(setUserStatus(data))
     })
@@ -98,11 +94,7 @@ export const updateUserStatus = (status: string) => (dispatch: Dispatch) => {
     })
 }
 //types
-export type PostPropsType = {
-    id: string
-    message: string
-    likesCount: number
-}
+
 
 export type InitialState = typeof initialState
 

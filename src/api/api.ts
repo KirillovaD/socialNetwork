@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
-import {ProfileType} from "../Components/Profile/ProfileContainer";
+import {ProfileType} from "../types/types";
+
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',

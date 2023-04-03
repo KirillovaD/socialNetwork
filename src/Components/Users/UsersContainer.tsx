@@ -5,11 +5,11 @@ import {
     getUsersTC,
     setCurrentPage,
     toggleFollowingInProgress, unfollow,
-    UserType
-} from "../../redux/usersReducer";
+} from "../../redux/users-reducer";
 import {connect} from "react-redux";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
+import {UserType} from "../../types/types";
 
 
 
