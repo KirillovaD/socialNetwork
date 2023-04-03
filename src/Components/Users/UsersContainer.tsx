@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppStateType} from "../../redux/redux-store";
+import {AppStateType} from "../../redux/store";
 import {
     follow,
     getUsersTC,
@@ -10,6 +10,14 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import Preloader from "../common/Preloader/Preloader";
 import {UserType} from "../../types/types";
+import {
+    getCurrentPage,
+    getFollowingInProgress, getIsAuth,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 
 
@@ -22,7 +30,6 @@ class UsersContainer extends React.Component<UsersPropsType> {
     onPageChanged = (pageNumber: number) => {
         this.props.getUsersTC(pageNumber, this.props.pageSize)
     }
-
 
     render() {
 
@@ -65,40 +72,18 @@ type mapDispatchPropsType = {
 }
 export type UsersPropsType = mapStatePropsType & mapDispatchPropsType
 
+
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress,
-        isAuth: state.auth.isAuth
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
+        isAuth: getIsAuth(state)
     }
 }
-
-// const mapDispatchToProps = (dispatch: Dispatch): mapDispatchPropsType => {
-//     return {
-//         follow: (userID: number) => {
-//             dispatch(followAC(userID))
-//         },
-//         unfollow: (userID: number) => {
-//             dispatch(unfollowAC(userID))
-//         },
-//         setUsers: (users: Array<UserType>) => {
-//             dispatch(setUsersAC(users))
-//         },
-//         setCurrentPage: (currentPage: number) => {
-//             dispatch(setCurrentPageAC(currentPage))
-//         },
-//         setTotalCount: (totalUsersCount: number) => {
-//             dispatch(setTotalUsersCountAC(totalUsersCount))
-//         },
-//         toggleFetching: (isFetching: boolean) => {
-//             dispatch(toggleFetchingAC(isFetching))
-//         }
-//     }
-// }
 
 export default connect(mapStateToProps, {
         follow,

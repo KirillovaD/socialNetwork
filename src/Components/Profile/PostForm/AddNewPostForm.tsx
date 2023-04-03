@@ -1,5 +1,5 @@
 import React from "react";
-import {useAppDispatch} from "../../../redux/redux-store";
+import {useAppDispatch} from "../../../redux/store";
 import { Formik, Form, Field } from 'formik';
 import {addPostAC} from "../../../redux/profile-reducer";
 

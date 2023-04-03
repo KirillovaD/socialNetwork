@@ -13,7 +13,7 @@ import {connect} from "react-redux";
 import {initializeAppTC} from "./redux/app-reducer";
 import {withRouter} from "react-router";
 import {compose} from "redux";
-import {AppStateType} from "./redux/redux-store";
+import {AppStateType} from "./redux/store";
 import Preloader from "./Components/common/Preloader/Preloader";
 import LoginFormik from "./Components/Login/Login";
 

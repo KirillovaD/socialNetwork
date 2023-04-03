@@ -1,7 +1,7 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/redux-store";
+import {AppStateType} from "../../redux/store";
 import {getUserProfile, getUserStatus, updateUserStatus} from "../../redux/profile-reducer";
 import {toggleFetching} from "../../redux/users-reducer";
 import {withRouter, RouteComponentProps} from "react-router";

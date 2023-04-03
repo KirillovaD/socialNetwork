@@ -1,9 +1,9 @@
 import React from 'react';
 import s from "./users.module.css";
 import user from "../../assets/images/user.png";
-
 import {Link} from "react-router-dom";
 import {UserType} from "../../types/types";
+import {Paginator} from "../common/Paginator/Paginator";
 
 
 type UsersPresentationType = {
@@ -19,21 +19,9 @@ type UsersPresentationType = {
 }
 
 const Users = (props: UsersPresentationType) => {
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
     return (
         <div>
-            <div>
-                {pages.map((p, index) => {
-                    return <span key={index} className={props.currentPage === p ? s.selectedPage : s.page}
-                                 onClick={() => {
-                                     props.onPageChanged(p)
-                                 }}>{p}</span>
-                })}
-            </div>
+            <Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize} currentPage={props.currentPage} onPageChange={props.onPageChanged} />
             {props.isAuth?
                 <div>{props.users.map(u => <div key={u.id}>
                 <span>

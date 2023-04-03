@@ -2,7 +2,7 @@ import {authAPI} from "../api/api";
 import {AnyAction, Dispatch} from "redux";
 
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
+import {AppStateType} from "./store";
 import {setAppErrorAC} from "./app-reducer";
 
 

@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
+import {AppStateType} from "./store";
 import {UserType} from "../types/types";
 
 
