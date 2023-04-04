@@ -4,7 +4,7 @@ import contentImg from "../../../assets/images/aesthetic-background-with-pattern
 
 import Preloader from "../../common/Preloader/Preloader";
 import user from "../../../assets/images/user.png"
-import ProfileStatus from "./ProfileStatus";
+
 import {ProfileType} from "../../../types/types";
 import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 

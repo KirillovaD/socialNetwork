@@ -1,5 +1,4 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {render} from "react-dom";
 
 type ProfileStatusPropsType = {
     status: string
