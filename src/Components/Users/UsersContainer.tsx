@@ -35,6 +35,7 @@ class UsersContainer extends React.Component<UsersPropsType> {
 
         return <>
             <Preloader isFetching={this.props.isFetching}/>
+            <h2>{this.props.pageTitle}</h2>
             <Users
                 totalUsersCount={this.props.totalUsersCount}
                 pageSize={this.props.pageSize}
@@ -70,7 +71,11 @@ type mapDispatchPropsType = {
     toggleFollowingInProgress: (followingInProgress: boolean) => void
     getUsersTC: (currentPage: number, pageSize: number) => void
 }
-export type UsersPropsType = mapStatePropsType & mapDispatchPropsType
+
+type OwnUserPropsType={
+    pageTitle:string
+}
+export type UsersPropsType = mapStatePropsType & mapDispatchPropsType &  OwnUserPropsType
 
 
 const mapStateToProps = (state: AppStateType): mapStatePropsType => {
@@ -85,7 +90,7 @@ const mapStateToProps = (state: AppStateType): mapStatePropsType => {
     }
 }
 
-export default connect(mapStateToProps, {
+export default connect<mapStatePropsType,mapDispatchPropsType,OwnUserPropsType,AppStateType>(mapStateToProps, {
         follow,
         unfollow,
         setCurrentPage,
