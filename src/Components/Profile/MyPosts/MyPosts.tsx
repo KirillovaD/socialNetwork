@@ -6,7 +6,7 @@ import {AddNewPostForm} from "../PostForm/AddNewPostForm";
 
 
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = React.memo((props: MyPostsPropsType) => {
     let postsElements = props.posts.map(p => <Post key={p.id} massage={p.message} likes={p.likesCount}/>)
 
 
@@ -21,6 +21,6 @@ export const MyPosts = (props: MyPostsPropsType) => {
         </div>
 
     )
-}
+})
 
 
