@@ -21,7 +21,7 @@ const initialState = {
 
 export const dialogsReducer = (state: InitialStateType = initialState, action: MessagesActionsType): InitialStateType => {
     switch (action.type) {
-        case "SEND-MESSAGE":
+        case "dialogs/SEND-MESSAGE":
             let newId= state.messages[state.messages.length-1].id + 1
             let newMessage = {id:newId, message: action.newMessageBody}
             return {
@@ -36,7 +36,7 @@ export const dialogsReducer = (state: InitialStateType = initialState, action: M
 //actions
 export const sendMessageAC = (newMessageBody:string) => {
     return {
-        type: "SEND-MESSAGE",
+        type: "dialogs/SEND-MESSAGE",
         newMessageBody
     } as const
 }

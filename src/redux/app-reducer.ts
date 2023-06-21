@@ -1,9 +1,6 @@
-
 import {getAuthUserDataTC} from "./auth-reducer";
 import {AppStateType} from "./store";
 import {ThunkAction} from "redux-thunk";
-
-
 
 const initialState: InitialStateType = {
     initialized: false,
@@ -11,24 +8,19 @@ const initialState: InitialStateType = {
 }
 export const appReducer = (state: InitialStateType = initialState, action: AppACType): InitialStateType => {
     switch (action.type) {
-        case "INITIALIZED_SUCCESS":
+        case "app/INITIALIZED_SUCCESS":
             return {...state,  initialized: true}
-        case 'APP/SET-ERROR':
+        case 'app/SET-ERROR':
             return {...state,error: action.error}
         default:
             return state
-
     }
 }
 
 
 //actions
-export const setInitializedSuccessAC = () => {
-    return {
-        type: "INITIALIZED_SUCCESS",
-    } as const
-}
-export const setAppErrorAC = (error: string | null) => ({type: 'APP/SET-ERROR', error} as const)
+export const setInitializedSuccessAC = () => ({type: "app/INITIALIZED_SUCCESS"} as const)
+export const setAppErrorAC = (error: string | null) => ({type: 'app/SET-ERROR', error} as const)
 
 //thunks
 
@@ -42,7 +34,6 @@ export const initializeAppTC = ():ThunkAction<void, AppStateType, unknown, AppAC
 }
 
 //types
-
 type InitialStateType = {
     initialized: boolean
     error: string | null

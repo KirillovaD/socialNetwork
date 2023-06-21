@@ -7,7 +7,7 @@ import {AddNewPostForm} from "../PostForm/AddNewPostForm";
 
 
 export const MyPosts = React.memo((props: MyPostsPropsType) => {
-    let postsElements = props.posts.map(p => <Post key={p.id} massage={p.message} likes={p.likesCount}/>)
+    let postsElements = props.posts.map(p => <Post key={p.id} id={p.id} massage={p.message} likes={p.likesCount} deletePost={props.deletePost}/>)
 
 
     return (

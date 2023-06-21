@@ -8,9 +8,12 @@
 }
 .checkbox{
     display: flex;
+    width: 100%;
+    gap: 10px;
 }
-input[type="checkbox"]{
-    align-self: flex-start;
+.checkbox input[type="checkbox"]{
+
+    width: 15px;
 }
 
 .form button{

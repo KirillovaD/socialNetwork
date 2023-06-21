@@ -1,0 +1,9 @@
+.selectedPage{
+    color: #4193ff;
+    cursor:pointer;
+    padding: 2px;
+}
+.page{
+    cursor: pointer;
+    padding: 6px;
+}

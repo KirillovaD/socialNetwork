@@ -1,8 +1,8 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import {profileAPI} from "../api/api";
+import {profileAPI} from "api/api";
 import {toggleFetching} from "./auth-reducer";
-import {PostPropsType, ProfileType} from "../types/types";
+import {PostPropsType, ProfileType} from "types/types";
 
 
 const initialState = {
@@ -19,19 +19,25 @@ const initialState = {
 
 export const profileReducer = (state: InitialState = initialState, action: ProfileActionsType): InitialState => {
     switch (action.type) {
-        case "ADD-POST":
+        case "profile/ADD-POST":
             const newPost: PostPropsType = {id: v1(), message: action.newPostText, likesCount: 0};
             return {
                 ...state,
                 posts: [...state.posts, newPost]
 
             }
-        case "SET-USER-PROFILE":
+        case "profile/DELETE-POST":
+            return {
+                ...state,
+                posts: state.posts.filter(p=> p.id !== action.postId)
+
+            }
+        case "profile/SET-USER-PROFILE":
             return {
                 ...state,
                 profile: {...action.profile}
             }
-        case "SET-USER-STATUS":
+        case "profile/SET-USER-STATUS":
             return {
                 ...state,
                 status: action.status
@@ -46,52 +52,61 @@ export const profileReducer = (state: InitialState = initialState, action: Profi
 //actions
 export const addPostAC = (newPostText: string) => {
     return {
-        type: "ADD-POST",
+        type: "profile/ADD-POST",
         newPostText
     } as const
 }
 
 export const setUserProfile = (profile: ProfileType) => {
     return {
-        type: "SET-USER-PROFILE",
+        type: "profile/SET-USER-PROFILE",
         profile
     } as const
 }
 
 export const setUserStatus = (status: string) => {
     return {
-        type: "SET-USER-STATUS",
+        type: "profile/SET-USER-STATUS",
         status
     } as const
 }
 
+export const deletePost = (postId: string) => {
+    return {
+        type: "profile/DELETE-POST",
+        postId
+    } as const
+}
+
+
 //thunks
 
-export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
+export const getUserProfile = (userId: number) => async (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
-    profileAPI.getUserProfile(userId).then(data => {
+    let res = await profileAPI.getUserProfile(userId)
         dispatch(toggleFetching(false))
-        dispatch(setUserProfile(data))
-    })
+        dispatch(setUserProfile(res))
 }
 
-export const getUserStatus = (userId: number) => (dispatch: Dispatch) => {
+export const getUserStatus = (userId: number) => async (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
-    profileAPI.getStatus(userId).then(data => {
+    let res = await profileAPI.getStatus(userId)
         dispatch(toggleFetching(false))
-        dispatch(setUserStatus(data))
-    })
+        dispatch(setUserStatus(res))
 }
 
-export const updateUserStatus = (status: string) => (dispatch: Dispatch) => {
+export const updateUserStatus = (status: string) => async (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
-    profileAPI.updateStatus(status).then(data => {
-        if (data.resultCode === 0) {
-            dispatch(toggleFetching(false))
-            dispatch(setUserStatus(status))
+    try {
+        let res = await profileAPI.updateStatus(status)
+            if (res.resultCode === 0) {
+                dispatch(toggleFetching(false))
+                dispatch(setUserStatus(status))
+            }
         }
-
-    })
+    catch (err){
+        console.log(err)
+    }
 }
 //types
 
@@ -102,3 +117,4 @@ export type ProfileActionsType =
     | ReturnType<typeof addPostAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof deletePost>

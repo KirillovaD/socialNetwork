@@ -1,13 +1,13 @@
 import React from 'react';
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
-import {AppStateType} from "../../redux/store";
-import {getUserProfile, getUserStatus, updateUserStatus} from "../../redux/profile-reducer";
-import {toggleFetching} from "../../redux/users-reducer";
+import {AppStateType} from "redux/store";
+import {getUserProfile, getUserStatus, updateUserStatus} from "redux/profile-reducer";
+import {toggleFetching} from "redux/users-reducer";
 import {withRouter, RouteComponentProps} from "react-router";
 import {compose} from "redux";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {PostPropsType, ProfileType} from "../../types/types";
+import {withAuthRedirect} from "hoc/withAuthRedirect";
+import {PostPropsType, ProfileType} from "types/types";
 
 
 type PropsType = RouteComponentProps<PathParamsType> & ProfileDomainType

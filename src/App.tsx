@@ -1,21 +1,21 @@
 import React from 'react';
 import './App.css';
-import {Navbar} from "./Components/Navbar/Navbar";
+import {Navbar} from "./components/Navbar/Navbar";
 import {Route} from "react-router-dom";
-import News from "./Components/News/News";
-import Music from "./Components/Music/Music";
-import Settings from "./Components/Settings/Settings";
-import {DialogsContainer} from "./Components/Dialogs/DialogsContainer";
-import UsersContainer from "./Components/Users/UsersContainer";
-import ProfileContainer from "./Components/Profile/ProfileContainer";
-import HeaderContainer from "./Components/Header/HeaderContainer";
+import News from "./components/News/News";
+import Music from "./components/Music/Music";
+import Settings from "./components/Settings/Settings";
+import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
 import {initializeAppTC} from "./redux/app-reducer";
 import {withRouter} from "react-router";
 import {compose} from "redux";
 import {AppStateType} from "./redux/store";
-import Preloader from "./Components/common/Preloader/Preloader";
-import LoginFormik from "./Components/Login/Login";
+import LoginFormik from "./components/Login/Login";
+import Preloader from "./components/common/Preloader/Preloader";
 
 
 class App extends React.Component<AppPropsType> {

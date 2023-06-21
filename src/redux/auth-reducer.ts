@@ -15,11 +15,11 @@ const initialState: InitialStateType = {
 }
 export const authReducer = (state: InitialStateType = initialState, action: AuthACType): InitialStateType => {
     switch (action.type) {
-        case "SET_USER_DATA":
+        case "auth/SET_USER_DATA":
             return {...state, ...action.data}
         // case 'SET-IS-AUTH':
         //     return {...state, isAuth: action.value}
-        case "TOGGLE_IS_FETCHING":
+        case "auth/TOGGLE_IS_FETCHING":
             return {...state, isFetching: action.isFetching}
         default:
             return state
@@ -31,7 +31,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 //actions
 export const setAuthUserData = (userId: number |null, email: string|null, login: string|null, isAuth: boolean) => {
     return {
-        type: "SET_USER_DATA",
+        type: "auth/SET_USER_DATA",
         data: {userId, email, login, isAuth}
     } as const
 }
@@ -42,7 +42,7 @@ export const setAuthUserData = (userId: number |null, email: string|null, login:
 
 export const toggleFetching = (isFetching: boolean) => {
     return {
-        type: "TOGGLE_IS_FETCHING",
+        type: "auth/TOGGLE_IS_FETCHING",
         isFetching
     } as const
 }
@@ -62,11 +62,10 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
     try {
         let res = await authAPI.login(email, password, rememberMe)
         dispatch(toggleFetching(false))
-        // dispatch(setIsAuthAC(true))
-        // dispatch(getUserProfile((res.data.data.userId)))
-        dispatch(getAuthUserDataTC())
+        await dispatch(getAuthUserDataTC())
         if (res.data.messages.length){
             dispatch(setAppErrorAC(res.data.messages[0]))
+            console.log(res.data.messages[0])
         }
 
     } catch (err) {
@@ -78,14 +77,21 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): T
 
 }
 
-export const logoutTC = () => (dispatch: Dispatch) => {
+export const logoutTC = () => async (dispatch: Dispatch) => {
     dispatch(toggleFetching(true))
-    authAPI.logout().then((res) => {
+    try {
+        let res = await authAPI.logout()
         if (res.data.resultCode === 0) {
             dispatch(toggleFetching(false))
             dispatch(setAuthUserData(null,null,null,false))
         }
-    })
+    }
+     catch (err){
+         console.warn(err)
+    }
+    finally {
+        dispatch(toggleFetching(false))
+    }
 }
 
 //types
