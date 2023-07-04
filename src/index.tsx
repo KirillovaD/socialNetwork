@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {store} from "./redux/store";
 import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
-import {Button, ConfigProvider} from "antd";
+import {BrowserRouter, HashRouter} from "react-router-dom";
+import {ConfigProvider} from "antd";
 
 
 ReactDOM.render(
-    <BrowserRouter>
+    <HashRouter>
         <ConfigProvider
           theme={{
               token: {
@@ -30,7 +30,7 @@ ReactDOM.render(
             <App/>
         </Provider>
         </ConfigProvider>
-    </BrowserRouter>,
+    </HashRouter>,
     document.getElementById('root')
 );
 
