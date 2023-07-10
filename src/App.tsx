@@ -1,13 +1,8 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route} from "react-router-dom";
-import News from "./components/News/News";
-import Music from "./components/Music/Music";
-import Settings from "./components/Settings/Settings";
-import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
 import {initializeAppTC} from "./redux/app-reducer";
@@ -16,15 +11,20 @@ import {compose} from "redux";
 import {AppStateType} from "./redux/store";
 import LoginFormik from "./components/Login/Login";
 import Preloader from "./components/common/Preloader/Preloader";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import {withSuspense} from "./hoc/withSuspense";
+const DialogsContainer = React.lazy(()=>import('./components/Dialogs/DialogsContainer'))
+const Music = React.lazy(()=>import('./components/Music/Music'))
+const Settings = React.lazy(()=>import('./components/Settings/Settings'))
+const News= React.lazy(()=>import('./components/News/News'))
+
 
 
 class App extends React.Component<AppPropsType> {
-
     componentDidMount() {
         this.props.initializeAppTC()
-
     }
-
+    
     render() {
         if(!this.props.initialized){
             return <Preloader isFetching={true}/>
@@ -35,16 +35,14 @@ class App extends React.Component<AppPropsType> {
                     <Navbar/>
                     <div className="app-wrapper-content">
                         <Route render={() => <LoginFormik/>} path='/login'/>
-                        <Route render={() => <DialogsContainer/>} path='/dialogs'/>
+                        <Route render={withSuspense(DialogsContainer)} path='/dialogs'/>
                         <Route render={() => <ProfileContainer/>} path='/profile/:userId?'/>
                         <Route render={() => <UsersContainer pageTitle={"Самурай"}/>} path='/users'/>
-                        <Route render={() => <News/>} path='/news'/>
-                        <Route render={() => <Music/>} path='/music'/>
-                        <Route render={() => <Settings/>} path='/settings'/>
+                        <Route render={withSuspense(News)} path='/news'/>
+                        <Route render={withSuspense(Music)} path='/music'/>
+                        <Route render={withSuspense(Settings)} path='/settings'/>
                     </div>
-
                 </div>
-
         );
     }
 }
