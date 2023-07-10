@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/739.adf3830d.chunk.js","mappings":"2IAWA,UARc,WACV,OACI","sources":["components/Music/Music.tsx"],"sourcesContent":["import React from 'react';\nimport s from \"./Music.module.css\";\n\nconst Music = () => {\n    return (\n        <>\n            Music\n        </>\n    );\n};\n\nexport default Music;"],"names":[],"sourceRoot":""}
