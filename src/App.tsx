@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
 import {Route} from "react-router-dom";
@@ -13,6 +13,7 @@ import LoginFormik from "./components/Login/Login";
 import Preloader from "./components/common/Preloader/Preloader";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import {withSuspense} from "./hoc/withSuspense";
+
 const DialogsContainer = React.lazy(()=>import('./components/Dialogs/DialogsContainer'))
 const Music = React.lazy(()=>import('./components/Music/Music'))
 const Settings = React.lazy(()=>import('./components/Settings/Settings'))

@@ -1,7 +1,4 @@
 import React, {ComponentType, Suspense} from 'react';
-import {Redirect} from "react-router-dom";
-import {connect} from "react-redux";
-import {AppStateType} from "../redux/store";
 import Preloader from "../components/common/Preloader/Preloader";
 
 
