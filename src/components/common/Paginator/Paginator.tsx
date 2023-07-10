@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import s from './paginator.module.css';
-import {LeftOutlined, SearchOutlined} from "@ant-design/icons";
+import {LeftOutlined, RightOutlined} from "@ant-design/icons";
 import {Button} from "antd";
 
 type PaginatorPropsType = {
@@ -33,8 +33,6 @@ export const Paginator: React.FC<PaginatorPropsType> = ({
 
     return <div>
         {portionNumber > 1 &&
-            // <button onClick={()=>{setPortionNumber(portionNumber-1)}}>PREV</button>button
-
             <Button icon={<LeftOutlined rev={undefined} />} onClick={() => setPortionNumber(portionNumber - 1)}/>
         }
         {pages.filter(p=> p>= leftPortionPageNumber && p<=rigthPortionPageNumber)
@@ -45,6 +43,6 @@ export const Paginator: React.FC<PaginatorPropsType> = ({
 
             })}
         {portionCount > portionNumber &&
-            <button onClick={()=>{setPortionNumber(portionNumber+1)}}>NEXT</button>}
+            <Button icon={<RightOutlined rev={undefined}/>} onClick={()=>{setPortionNumber(portionNumber+1)}}/>}
     </div>
 }

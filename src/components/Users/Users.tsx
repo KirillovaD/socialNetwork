@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {UserType} from "../../types/types";
-import {Pagination} from "antd";
 import {User} from "./User/User";
+import {Paginator} from "../common/Paginator/Paginator";
 
 
 type UsersPresentationType = {
@@ -16,15 +16,26 @@ type UsersPresentationType = {
   isAuth: boolean
 }
 
-const Users:FC<UsersPresentationType> = ({users, followingInProgress, follow, unfollow, isAuth, currentPage,onPageChanged, totalUsersCount, pageSize}) => {
+const Users: FC<UsersPresentationType> = ({
+                                            users,
+                                            followingInProgress,
+                                            follow,
+                                            unfollow,
+                                            isAuth,
+                                            currentPage,
+                                            onPageChanged,
+                                            totalUsersCount,
+                                            pageSize
+                                          }) => {
   return (
     <div>
-      {/*<Paginator totalItemsCount={props.totalUsersCount} pageSize={props.pageSize} currentPage={props.currentPage} onPageChange={props.onPageChanged} />*/}
+      <Paginator totalItemsCount={totalUsersCount} pageSize={pageSize} currentPage={currentPage}
+                 onPageChange={onPageChanged}/>
       <div>
         {users.map(u => <User key={u.id} user={u} followingInProgress={followingInProgress}
-                                    follow={follow} unfollow={unfollow} isAuth={isAuth}/>)}
+                              follow={follow} unfollow={unfollow} isAuth={isAuth}/>)}
       </div>
-      <Pagination current={currentPage} onChange={onPageChanged} total={totalUsersCount}/>
+      {/*<Pagination current={currentPage} onChange={onPageChanged} total={totalUsersCount}/>*/}
     </div>
   );
 };
